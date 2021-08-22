@@ -1,0 +1,44 @@
+extends layout
+
+block content
+  hr
+  div(class="container")
+    div(class="row")
+      div(class="col-sm")
+        input#txtname(class="form-control", type="text", name="txtname", placeholder="Name" required)
+      div(class="col-sm")
+        input#txtemail(class="form-control", type="email", name="txtemail", placeholder="Enter email id" required)
+      div(class="col-sm")
+        input#txtphone(class="form-control", type="tel", name="txtphone", placeholder="Enter phone no" required)
+    div(class="row")
+      div(class="col-sm-2 mt-4")
+        input#btnsavecontact(class="btn btn-primary form-control", type="submit", value="Save Contact")
+    br
+    div(class="alert alert-danger d-none", role="alert" id="appalert")
+
+    hr
+    table(class='table table-dark table-bordered')
+        thead
+        tr
+            th #
+            th Name
+            th Email
+            th Phone No
+            th Favorite
+            th Remove
+        tbody
+        for contact,index in contacts
+            tr
+            th= index
+            td= contact.name
+            td= contact.email
+            td= contact.phone
+            td(class="tdaligncenter")
+              div
+                if contact.isFavorite
+                  i(id=contact.id class="far fa-heart fa-lg green-color")
+                else
+                  i(id=contact.id class="far fa-heart fa-lg")
+            td(class="tdaligncenter")
+              div
+                i(id=contact.id class="far fa-trash-alt fa-lg red-color")

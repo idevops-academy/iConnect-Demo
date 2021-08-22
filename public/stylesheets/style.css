@@ -1,0 +1,28 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: powderblue;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.green-color {
+  color:green;
+}
+
+.green-color:focus {
+  color:green;
+}
+
+.red-color {
+  color:red;
+}
+
+.tdaligncenter {
+  text-align: center;
+  vertical-align: middle;
+}
+
+
