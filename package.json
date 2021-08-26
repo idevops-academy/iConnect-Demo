@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "jest --ci --reporters=default --reporters=jest-junit"
+    "test": "jest --ci --reporters=default --reporters=jest-junit --coverage"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
