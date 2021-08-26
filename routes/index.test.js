@@ -29,7 +29,7 @@ it('Testing to see if Jest works', () => {
 //test the contacts endpoints
 it('test if the contacts endpoint returns data', async done => {
     const response = await request.get('/contacts')
-    expect(response.status).toBe(200)
+    expect(response.status).toBe(400)
     expect(Array.isArray(response.body)).toBe(true)
     expect(response.body.length > 0).toBe(true)
     done()
