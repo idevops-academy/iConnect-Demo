@@ -26,7 +26,7 @@ it('Testing to see if Jest works', () => {
 
 // Integration Tests
 
-//test the contacts endpoints
+//test the contacts endpoints.
 it('test if the contacts endpoint returns data', async done => {
     const response = await request.get('/contacts')
     expect(response.status).toBe(200)
@@ -35,7 +35,7 @@ it('test if the contacts endpoint returns data', async done => {
     done()
 })
 
-//test get contact by id
+//test get contact by id.
 it('test get contact by id', async done => {
     const response = await request.get('/contacts/1')
     expect(response.status).toBe(200)
