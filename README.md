@@ -1,4 +1,4 @@
-![Jenkins](https://img.shields.io/jenkins/build?jobUrl=http%3A%2F%2Fshield%3A11dd33b151dbfe1d6425ff7818e3a37dd2%40ec2-3-109-48-67.ap-south-1.compute.amazonaws.com%3A8080%2Fjob%2FiConnect-Build-Demo%2F&style=plastic)
+![Jenkins](https://img.shields.io/jenkins/build?jobUrl=http%3A%2F%2Fshield%3A11ea2beea3b9839fec02fe12513090e673%40ec2-13-232-134-228.ap-south-1.compute.amazonaws.com%3A8080%2Fjob%2FiConnect-Build-Demo%2F)
 
 # Instructions to run the project
 
