@@ -21,7 +21,7 @@ sudo mkdir -p /var/myapp
 cd /var/myapp
 
 #clone the application from github
-sudo git clone https://github.com/idevops-academy/iConnect-Demo.git (authentication needed)
+sudo git clone https://github.com/idevops-academy/iConnect-Demo.git
 cd iConnect-Demo/
 
 #install application dependencies and start the app
