@@ -1,0 +1,69 @@
+---
+- name: Deploy iConnect Application
+  hosts: localhost
+  gather_facts: true
+  become: true
+  vars:
+    nginxstate: notrunning    
+
+  tasks:
+    - name: Populate service facts
+      ansible.builtin.service_facts:
+    
+    - name: Update OS packages
+      yum:
+        name: '*'
+        state: latest
+
+    - name: Change if nginx is installed and running
+      set_fact:
+        nginxstate: "{{ ansible_facts.services['nginx.service']['state'] }}"
+    
+    - name: Install Nginx
+      command:
+        cmd: "amazon-linux-extras install nginx1"
+      when: nginxstate == "notrunning"
+
+    - name: Enable nginx and start
+      ansible.builtin.systemd:
+        name: nginx
+        enabled: yes
+        state: started
+    
+    - name: Install git and nodejs
+      yum:
+        name:
+          - git
+          - nodejs
+        state: present
+    
+    - name: Install PM2.
+      community.general.npm:
+        name: pm2
+        global: yes
+        state: present
+
+    - name: Clone the repo
+      ansible.builtin.git:
+        repo: 'https://github.com/idevops-academy/iConnect-Demo.git'
+        dest: /var/myapp2
+        update: yes
+    
+    - name: Install packages based on package.json.
+      community.general.npm:
+        path: /var/myapp2
+
+    - name: Copy nginx configuration
+      copy:
+        src: /var/myapp2/nginx/sysmon.conf
+        dest: /etc/nginx/conf.d/sysmon.conf
+
+    - name: Run the app using pm2
+      command:
+        cmd: "pm2 start --name iconnect npm -- start"
+        chdir: "/var/myapp2"
+
+    - name: Enable nginx and start
+      ansible.builtin.systemd:
+        name: nginx
+        state: reloaded
