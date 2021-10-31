@@ -22,7 +22,7 @@
     
     - name: Install Nginx
       command:
-        cmd: "amazon-linux-extras install nginx1"
+        cmd: "amazon-linux-extras install nginx1 -y"
       when: nginxstate == "notrunning"
 
     - name: Enable nginx and start
