@@ -30,7 +30,18 @@
         name: nginx
         enabled: yes
         state: started
+
+    - name: Download nodejs version script
+      get_url: 
+        url: https://rpm.nodesource.com/setup_14.x
+        dest: /etc/node14/node14.sh
+        mode: 755
     
+    - name: Execute Node Script
+      command:
+        cmd: "node14.sh"
+        chdir: "/etc/node14/"
+
     - name: Install git and nodejs
       yum:
         name:
