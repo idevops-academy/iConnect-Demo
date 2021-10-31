@@ -39,8 +39,8 @@
     
     - name: Execute Node Script
       ansible.builtin.shell: node14.sh
-        args:
-          chdir: /tmp
+      args:
+        chdir: /tmp
 
     - name: Install git and nodejs
       yum:
