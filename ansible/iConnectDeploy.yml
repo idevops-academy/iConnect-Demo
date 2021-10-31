@@ -38,9 +38,7 @@
         mode: 755
     
     - name: Execute Node Script
-      ansible.builtin.shell: node14.sh
-      args:
-        chdir: /tmp
+      ansible.builtin.shell: /tmp/node14.sh
 
     - name: Install git and nodejs
       yum:
