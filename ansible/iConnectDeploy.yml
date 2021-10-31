@@ -67,6 +67,7 @@
       copy:
         src: /var/myapp2/nginx/sysmon.conf
         dest: /etc/nginx/conf.d/sysmon.conf
+        remote_src: true
 
     - name: Run the app using pm2
       command:
