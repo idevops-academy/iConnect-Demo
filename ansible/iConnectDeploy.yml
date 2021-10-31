@@ -18,6 +18,7 @@
     - name: Change if nginx is installed and running
       set_fact:
         nginxstate: "{{ ansible_facts.services['nginx.service']['state'] }}"
+      ignore_errors: yes
     
     - name: Install Nginx
       command:
