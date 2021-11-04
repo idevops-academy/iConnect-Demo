@@ -1,14 +1,15 @@
 pipeline {
-    agent any
+    agent none
     environment{
         MY_NAME="shaik"
-    }
-    tools {
-        nodejs 'nodev14' 
-    }
+    }   
 
     stages {
         stage('Build') {
+            agent {label 'master'}
+            tools {
+                nodejs 'nodev14' 
+            }
             steps {
                 echo 'Build Project, Run Unit Tests & Package'
                 git branch: 'main', url: 'https://github.com/idevops-academy/iConnect-Demo.git'
@@ -25,7 +26,6 @@ pipeline {
                     unhealthyTarget: [methodCoverage: 50, conditionalCoverage: 50, statementCoverage: 50],
                     failingTarget: [methodCoverage: 0, conditionalCoverage: 0, statementCoverage: 0]
                 ]) 
-                setBuildStatus("Build Complete","SUCCESS")              
             }
             post{
                 success {
@@ -35,13 +35,17 @@ pipeline {
                         npm install --prod
                     '''
                     archiveArtifacts artifacts: '**', excludes: 'junit.xml', fingerprint: true, followSymlinks: false, onlyIfSuccessful: true
-                    slackSend channel: 'jenkins-bot', color: 'good', message: "Build started Job Name: ${env.JOB_NAME} Build Number: ${env.BUILD_NUMBER} Build Url: (<${env.BUILD_URL}|Open>)"
+                    stash excludes: 'junit.xml', includes: '**', name: "iConnect-${BUILD_NUMBER}"
+                    
                 }                
             }            
         }
         stage('Deploy To Test'){
+            agent {label 'Deployer-Ansible'}
             steps {
                 echo 'Deploy application to Test Environment and run tests'
+                unstash "iConnect-${BUILD_NUMBER}"
+                ansiblePlaybook 'ansible/iConnectDeploy.yml'
                 
             }
 
@@ -58,5 +62,9 @@ pipeline {
         always{
             echo "This is executed always"
         }
+        success{
+            slackSend channel: 'jenkins-bot', color: 'good', message: "Build started Job Name: ${env.JOB_NAME} Build Number: ${env.BUILD_NUMBER} Build Url: (<${env.BUILD_URL}|Open>)"
+        }
+        
     }
 }
