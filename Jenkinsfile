@@ -1,7 +1,9 @@
 pipeline {
     agent none
+    options { skipDefaultCheckout(true) }
     environment{
         MY_NAME="shaik"
+        appurl="http://ec2-52-66-195-136.ap-south-1.compute.amazonaws.com"
     }   
 
     stages {
@@ -40,7 +42,7 @@ pipeline {
                 }                
             }            
         }
-        stage('Deploy To Test Env'){
+        stage('Deploy To Test'){
             agent {label 'Deployer-Ansible'}
             steps {
                 echo 'Deploy application to Test Environment and run tests'
@@ -52,9 +54,16 @@ pipeline {
             parallel {
                 
                 stage('Integration Tests') {  
-                    agent {label 'iConnect-Tester'}                  
+                    agent {label 'iConnect-Tester'}                 
                     steps {
                         echo message: "Running Integration Tests"
+                        git branch:'main', url:'https://github.com/idevops-academy/iConnectQA.git'
+                        nodejs('nodev14') {
+                            sh '''
+                                npm install
+                                npm run test
+                            '''
+                        }                        
                     }                    
                 }
                 stage('Load Tests') {
