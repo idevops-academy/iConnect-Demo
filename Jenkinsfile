@@ -36,24 +36,43 @@ pipeline {
                     '''
                     archiveArtifacts artifacts: '**', excludes: 'junit.xml', fingerprint: true, followSymlinks: false, onlyIfSuccessful: true
                     stash excludes: 'junit.xml', includes: '**', name: "iConnect-${BUILD_NUMBER}"
-                    
+                    //cleanWs()                    
                 }                
             }            
         }
-        stage('Deploy To Test'){
+        stage('Deploy To Test Env'){
             agent {label 'Deployer-Ansible'}
             steps {
                 echo 'Deploy application to Test Environment and run tests'
                 unstash "iConnect-${BUILD_NUMBER}"
-                ansiblePlaybook 'ansible/iConnectDeploy.yml'
-                
+                //ansiblePlaybook 'ansible/iConnectDeploy.yml'                
             }
-
+        }
+        stage('Run Tests'){            
+            parallel {
+                
+                stage('Integration Tests') {  
+                    agent {label 'iConnect-Tester'}                  
+                    steps {
+                        echo message: "Running Integration Tests"
+                    }                    
+                }
+                stage('Load Tests') {
+                    agent {label 'iConnect-Tester'}
+                    steps {
+                        echo message: "Running Load Tests"
+                    }
+                    // post {
+                    //     always {
+                    //         junit "**/TEST-*.xml"
+                    //     }
+                    // }
+                }
+            }
         }
         stage('Deploy To Prod'){
             steps {
-                echo 'Deploy application to Production'
-                
+                echo 'Deploy application to Production'                
             }
 
         }
