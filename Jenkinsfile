@@ -60,8 +60,10 @@ pipeline {
                         git branch:'main', url:'https://github.com/idevops-academy/iConnectQA.git'
                         nodejs('nodev14') {
                             sh '''
+                                sudo amazon-linux-extras install epel -y
+                                sudo yum install -y chromium
                                 npm install
-                                npm run test
+                                npm run test:headless
                             '''
                         }                        
                     }                    
