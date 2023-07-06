@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="9" failures="1" time="0.68">
+  <testsuite name="undefined" errors="0" failures="1" skipped="0" timestamp="2023-07-06T20:29:14" time="0.385" tests="9">
+    <testcase classname=" Test if the number is even" name=" Test if the number is even" time="0.001">
+    </testcase>
+    <testcase classname=" Test if the number is odd" name=" Test if the number is odd" time="0">
+    </testcase>
+    <testcase classname=" Testing to see if Jest works" name=" Testing to see if Jest works" time="0">
+    </testcase>
+    <testcase classname=" test if the contacts endpoint returns data" name=" test if the contacts endpoint returns data" time="0.015">
+    </testcase>
+    <testcase classname=" test get contact by id" name=" test get contact by id" time="0.003">
+    </testcase>
+    <testcase classname=" test contact not found" name=" test contact not found" time="0.005">
+    </testcase>
+    <testcase classname=" test contact addition" name=" test contact addition" time="0.008">
+    </testcase>
+    <testcase classname=" test contact delete" name=" test contact delete" time="0.002">
+    </testcase>
+    <testcase classname=" test health point" name=" test health point" time="0.002">
+      <failure>Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: false
+Received: true
+    at Object.&lt;anonymous&gt; (/Users/shaik/Documents/node/iConnect-Demo/routes/index.test.js:72:47)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)</failure>
+    </testcase>
+  </testsuite>
+</testsuites>
